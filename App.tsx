@@ -1,20 +1,46 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import React, { useState } from 'react';
+import { HomeScreen } from './src/screens/HomeScreen';
+import { CalibrateScreen } from './src/screens/CalibrateScreen';
+import { CountScreen } from './src/screens/CountScreen';
+import type { AppScreen } from './src/pose/types';
 
-export default function App() {
+/**
+ * Root screen switcher for the exercise counter prototype.
+ * Keeps navigation intentionally minimal — no router library.
+ */
+export default function App(): React.JSX.Element {
+  const [screen, setScreen] = useState<AppScreen>({ name: 'home' });
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  if (screen.name === 'calibrate') {
+    return (
+      <CalibrateScreen
+        exerciseName={screen.exerciseName}
+        onCancel={() => setScreen({ name: 'home' })}
+        onDone={() => {
+          setRefreshKey((k) => k + 1);
+          setScreen({ name: 'home' });
+        }}
+      />
+    );
+  }
+
+  if (screen.name === 'count') {
+    return (
+      <CountScreen
+        exerciseName={screen.exerciseName}
+        onBack={() => setScreen({ name: 'home' })}
+      />
+    );
+  }
+
   return (
-    <View style={styles.container}>
-      <Text>Open up App.tsx to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    <HomeScreen
+      refreshKey={refreshKey}
+      onCreate={(exerciseName) =>
+        setScreen({ name: 'calibrate', exerciseName })
+      }
+      onSelect={(exerciseName) => setScreen({ name: 'count', exerciseName })}
+    />
   );
 }
-
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
