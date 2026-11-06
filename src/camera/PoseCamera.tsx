@@ -109,10 +109,14 @@ export function PoseCamera({
     [mirrored, viewSize.height, viewSize.width]
   );
 
+  const [poseError, setPoseError] = useState<string | null>(null);
+
   const handleError = useCallback((error: { message: string }) => {
     console.warn('[PoseCamera]', error.message);
+    setPoseError(error.message);
   }, []);
 
+  // CPU is more stable across Android devices than the MediaPipe GPU delegate.
   const pose = usePoseDetection(
     {
       onResults: handleResults,
@@ -125,9 +129,9 @@ export function PoseCamera({
       minPoseDetectionConfidence: 0.5,
       minPosePresenceConfidence: 0.5,
       minTrackingConfidence: 0.5,
-      delegate: Delegate.GPU,
+      delegate: Delegate.CPU,
       mirrorMode: 'mirror-front-only',
-      fpsMode: 15,
+      fpsMode: 12,
     }
   );
 
@@ -148,14 +152,17 @@ export function PoseCamera({
   );
 
   const status = useMemo(() => {
+    if (poseError) {
+      return `Pose detection error: ${poseError}`;
+    }
     if (!hasPermission) {
-      return 'Camera permission required';
+      return 'Camera permission required — allow camera access and reopen.';
     }
     if (!device) {
       return 'Loading camera…';
     }
     return null;
-  }, [device, hasPermission]);
+  }, [device, hasPermission, poseError]);
 
   if (status) {
     return (

@@ -1,0 +1,44 @@
+diff --git a/node_modules/react-native-mediapipe-posedetection/lib/commonjs/index.js b/node_modules/react-native-mediapipe-posedetection/lib/commonjs/index.js
+index c7cad7e..ef4dbd1 100644
+--- a/node_modules/react-native-mediapipe-posedetection/lib/commonjs/index.js
++++ b/node_modules/react-native-mediapipe-posedetection/lib/commonjs/index.js
+@@ -49,7 +49,8 @@ function _interopRequireDefault(e) { return e && e.__esModule ? e : { default: e
+ 
+ const plugin = _reactNativeVisionCamera.VisionCameraProxy.initFrameProcessorPlugin('poseDetection', {});
+ if (!plugin) {
+-  throw new Error('Failed to initialize posedetection plugin');
++  // Soft-fail: throwing here crashes release APKs at import time before UI mounts.
++  console.error('Failed to initialize posedetection plugin (will retry when camera starts)');
+ }
+ function getPoseDetectionModule() {
+   if (!_NativeMediapipePosedetection.default) {
+diff --git a/node_modules/react-native-mediapipe-posedetection/lib/module/index.js b/node_modules/react-native-mediapipe-posedetection/lib/module/index.js
+index 37db904..d847378 100644
+--- a/node_modules/react-native-mediapipe-posedetection/lib/module/index.js
++++ b/node_modules/react-native-mediapipe-posedetection/lib/module/index.js
+@@ -19,7 +19,8 @@ export { Delegate, RunningMode };
+ export { BaseViewCoordinator } from "./shared/convert.js";
+ const plugin = VisionCameraProxy.initFrameProcessorPlugin('poseDetection', {});
+ if (!plugin) {
+-  throw new Error('Failed to initialize posedetection plugin');
++  // Soft-fail: throwing here crashes release APKs at import time before UI mounts.
++  console.error('Failed to initialize posedetection plugin (will retry when camera starts)');
+ }
+ function getPoseDetectionModule() {
+   if (!MediapipePosedetection) {
+diff --git a/node_modules/react-native-mediapipe-posedetection/src/index.tsx b/node_modules/react-native-mediapipe-posedetection/src/index.tsx
+index cc4cc79..f3672c6 100644
+--- a/node_modules/react-native-mediapipe-posedetection/src/index.tsx
++++ b/node_modules/react-native-mediapipe-posedetection/src/index.tsx
+@@ -51,7 +51,10 @@ export { BaseViewCoordinator } from './shared/convert';
+ const plugin = VisionCameraProxy.initFrameProcessorPlugin('poseDetection', {});
+ 
+ if (!plugin) {
+-  throw new Error('Failed to initialize posedetection plugin');
++  // Soft-fail: throwing here crashes release APKs at import time before UI mounts.
++  console.error(
++    'Failed to initialize posedetection plugin (will retry when camera starts)'
++  );
+ }
+ 
+ interface PoseDetectionModule {
