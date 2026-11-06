@@ -27,7 +27,10 @@
       },
       "edgeToEdgeEnabled": true,
       "package": "com.exercisecounter.app",
-      "permissions": ["CAMERA"]
+      "permissions": [
+        "CAMERA",
+        "android.permission.CAMERA"
+      ]
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -43,10 +46,17 @@
       [
         "react-native-mediapipe-posedetection",
         {
-          "assetsPaths": ["./assets/models/"]
+          "assetsPaths": [
+            "./assets/models/"
+          ]
         }
       ],
       "expo-dev-client"
-    ]
+    ],
+    "extra": {
+      "eas": {
+        "projectId": "eb961e2a-eb85-42c6-a8bc-695a9887becc"
+      }
+    }
   }
 }
