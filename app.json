@@ -8,6 +8,14 @@
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "newArchEnabled": true,
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/eb961e2a-eb85-42c6-a8bc-695a9887becc",
+      "fallbackToCacheTimeout": 0,
+      "checkAutomatically": "ON_LOAD"
+    },
     "splash": {
       "image": "./assets/splash-icon.png",
       "resizeMode": "contain",
@@ -46,7 +54,8 @@
         {
           "assetsPaths": ["./assets/models/"]
         }
-      ]
+      ],
+      "expo-updates"
     ],
     "extra": {
       "eas": {

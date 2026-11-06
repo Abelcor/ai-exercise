@@ -91,14 +91,40 @@ npx expo start --dev-client
 3. Calibration segments reps, DTW-aligns them, stores a weighted template + confidence threshold.
 4. Counting uses a primary-channel state machine (`idle → leaving → peak → returning`) and accepts a rep only when amplitude and DTW distance both pass.
 
+## OTA updates (EAS Update)
+
+JS/TypeScript and asset changes can be shipped without rebuilding the APK.
+
+**OTA can update:** screens, DTW/rep-counting logic, UI text, most JS fixes  
+**OTA cannot update:** native modules, Vision Camera / MediaPipe plugins, permissions, `app.json` native config — those need a new APK
+
+Runtime version policy is `appVersion` (currently `1.0.1`). Keep that version the same for OTA; bump it when you ship a new native APK.
+
+```bash
+# After changing JS only — publish an update to the preview channel
+npx eas-cli update --channel preview --message "Describe the fix" --environment preview --non-interactive
+
+# Or:
+npm run update:preview -- --message "Describe the fix"
+```
+
+Users on the preview APK pick up the update on next cold start (check-on-load). Force-close and reopen the app if it was already open.
+
+```bash
+# When native code changes, rebuild the APK once:
+npm run build:apk
+```
+
 ## Scripts
 
 | Script | Purpose |
 |--------|---------|
-| `npm start` | Metro bundler (dev client) |
+| `npm start` | Metro bundler |
 | `npm run prebuild` | Generate `android/` / `ios/` |
 | `npm run android` | Build & run on Android |
 | `npm run ios` | Build & run on iOS |
+| `npm run build:apk` | EAS Android APK (preview channel) |
+| `npm run update:preview` | Publish OTA to preview channel |
 
 ## Out of scope
 
