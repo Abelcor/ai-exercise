@@ -1,3 +1,4 @@
+import 'react-native-gesture-handler';
 import 'react-native-worklets-core';
 import { registerRootComponent } from 'expo';
 

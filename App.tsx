@@ -5,9 +5,7 @@ import { HomeScreen } from './src/screens/HomeScreen';
 import { ErrorBoundary } from './src/components/ErrorBoundary';
 import type { AppScreen } from './src/pose/types';
 
-SplashScreen.preventAutoHideAsync().catch(() => {
-  // Splash module may already be hidden in some environments.
-});
+SplashScreen.preventAutoHideAsync().catch(() => undefined);
 
 /**
  * Camera screens pull in Vision Camera + MediaPipe. Lazy-load them so a plugin
@@ -38,45 +36,17 @@ function ScreenLoader(): React.JSX.Element {
 
 /**
  * Root screen switcher for the exercise counter prototype.
- * Keeps navigation intentionally minimal — no router library.
  */
 export default function App(): React.JSX.Element {
   const [screen, setScreen] = useState<AppScreen>({ name: 'home' });
   const [refreshKey, setRefreshKey] = useState(0);
   const [boundaryKey, setBoundaryKey] = useState(0);
-  const [ready, setReady] = useState(false);
 
   useEffect(() => {
-    let cancelled = false;
-    /**
-     * Hides the native splash as soon as React has mounted so a white splash
-     * does not look like a frozen blank app.
-     */
-    const reveal = async () => {
-      try {
-        await SplashScreen.hideAsync();
-      } catch (error) {
-        console.warn('[App] SplashScreen.hideAsync failed', error);
-      } finally {
-        if (!cancelled) {
-          setReady(true);
-        }
-      }
-    };
-    reveal();
-    return () => {
-      cancelled = true;
-    };
+    SplashScreen.hideAsync().catch((error) => {
+      console.warn('[App] SplashScreen.hideAsync failed', error);
+    });
   }, []);
-
-  if (!ready) {
-    return (
-      <View style={styles.loader}>
-        <ActivityIndicator size="large" color="#111" />
-        <Text style={styles.loaderText}>Starting…</Text>
-      </View>
-    );
-  }
 
   return (
     <ErrorBoundary
