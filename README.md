@@ -91,6 +91,20 @@ npx expo start --dev-client
 3. Calibration segments reps, DTW-aligns them, stores a weighted template + confidence threshold.
 4. Counting uses a primary-channel state machine (`idle → leaving → peak → returning`) and accepts a rep only when amplitude and DTW distance both pass.
 
+## Debugging (not Expo Go)
+
+Expo Go cannot run this app — Vision Camera + MediaPipe need a custom native binary.
+
+Use a **development client** APK so JS errors appear in the Metro terminal:
+
+```bash
+npm run build:dev
+# install the APK from the Expo build page, then:
+npm run start:dev
+```
+
+Open the installed “Exercise Counter” app on your phone (same Wi‑Fi). Redbox errors and `console` logs show in the terminal.
+
 ## OTA updates (EAS Update)
 
 JS/TypeScript and asset changes can be shipped without rebuilding the APK.

@@ -3,7 +3,7 @@
     "name": "Exercise Counter",
     "slug": "exercise_counter",
     "owner": "abelcor",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -36,12 +36,13 @@
       "edgeToEdgeEnabled": true,
       "package": "com.exercisecounter.app",
       "permissions": ["CAMERA"],
-      "versionCode": 2
+      "versionCode": 3
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
+      "expo-dev-client",
       [
         "react-native-vision-camera",
         {
@@ -55,7 +56,8 @@
           "assetsPaths": ["./assets/models/"]
         }
       ],
-      "expo-updates"
+      "expo-updates",
+      "expo-splash-screen"
     ],
     "extra": {
       "eas": {
