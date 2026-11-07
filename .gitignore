@@ -37,3 +37,8 @@ yarn-error.*
 
 # typescript
 *.tsbuildinfo
+
+dist-test/
+eas-fail.*
+eas-build.json
+eas-log*
