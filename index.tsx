@@ -3,16 +3,16 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 /**
- * Standalone boot probe (no Metro/dev-client required).
- * Confirms the native binary can mount a React surface.
+ * Standalone boot probe with no camera/MediaPipe native modules linked.
  */
 function App(): React.JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Exercise Counter</Text>
-      <Text style={styles.subtitle}>Boot OK (v1.0.4)</Text>
+      <Text style={styles.subtitle}>Boot OK (v1.0.5)</Text>
       <Text style={styles.hint}>
-        Standalone APK loaded successfully. Camera UI will be restored next.
+        Native modules stripped for startup test. If you see this, the crash was
+        from MediaPipe/Vision Camera native init.
       </Text>
     </View>
   );

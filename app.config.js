@@ -1,6 +1,6 @@
 /**
- * Expo app config.
- * Development builds disable OTA. Preview/production keep OTA enabled.
+ * Minimal Expo config for a boot-verification APK.
+ * Camera/MediaPipe plugins are omitted until native startup is stable.
  */
 module.exports = ({ config }) => {
   const profile = process.env.EAS_BUILD_PROFILE;
@@ -10,13 +10,12 @@ module.exports = ({ config }) => {
     ...config,
     name: 'Exercise Counter',
     slug: 'exercise_counter',
-    version: '1.0.4',
+    version: '1.0.5',
     scheme: 'exercisecounter',
     android: {
       ...config.android,
       package: 'com.exercisecounter.app',
-      versionCode: 5,
-      // Required by Expo SDK 53+ deep linking / dev-client on Android.
+      versionCode: 6,
       scheme: ['exercisecounter', 'com.exercisecounter.app'],
     },
     ios: {
@@ -29,23 +28,6 @@ module.exports = ({ config }) => {
       checkAutomatically: enableUpdates ? 'ON_LOAD' : 'NEVER',
       fallbackToCacheTimeout: 0,
     },
-    plugins: [
-      'expo-dev-client',
-      [
-        'react-native-vision-camera',
-        {
-          cameraPermissionText:
-            'Camera access is required to track your body pose and count exercise repetitions.',
-          enableMicrophonePermission: false,
-        },
-      ],
-      [
-        'react-native-mediapipe-posedetection',
-        {
-          assetsPaths: ['./assets/models/'],
-        },
-      ],
-      'expo-updates',
-    ],
+    plugins: ['expo-updates'],
   };
 };

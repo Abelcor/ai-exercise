@@ -3,7 +3,7 @@
     "name": "Exercise Counter",
     "slug": "exercise_counter",
     "owner": "abelcor",
-    "version": "1.0.3",
+    "version": "1.0.5",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
@@ -36,28 +36,13 @@
       "edgeToEdgeEnabled": true,
       "package": "com.exercisecounter.app",
       "permissions": ["CAMERA"],
-      "versionCode": 4
+      "versionCode": 6
     },
     "web": {
       "favicon": "./assets/favicon.png"
     },
     "plugins": [
-      "expo-dev-client",
-      [
-        "react-native-vision-camera",
-        {
-          "cameraPermissionText": "Camera access is required to track your body pose and count exercise repetitions.",
-          "enableMicrophonePermission": false
-        }
-      ],
-      [
-        "react-native-mediapipe-posedetection",
-        {
-          "assetsPaths": ["./assets/models/"]
-        }
-      ],
-      "expo-updates",
-      "expo-splash-screen"
+      "expo-updates"
     ],
     "extra": {
       "eas": {
