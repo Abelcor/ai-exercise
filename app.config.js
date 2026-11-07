@@ -1,7 +1,6 @@
 /**
- * Expo config wrapper so development builds can disable OTA checks.
- * OTA surface restarts have been linked to
- * "AppRegistryBinding::stopSurface failed. Global was not installed".
+ * Expo app config.
+ * Development builds disable OTA. Preview/production keep OTA enabled.
  */
 module.exports = ({ config }) => {
   const profile = process.env.EAS_BUILD_PROFILE;
@@ -9,10 +8,20 @@ module.exports = ({ config }) => {
 
   return {
     ...config,
-    version: '1.0.3',
+    name: 'Exercise Counter',
+    slug: 'exercise_counter',
+    version: '1.0.4',
+    scheme: 'exercisecounter',
     android: {
       ...config.android,
-      versionCode: 4,
+      package: 'com.exercisecounter.app',
+      versionCode: 5,
+      // Required by Expo SDK 53+ deep linking / dev-client on Android.
+      scheme: ['exercisecounter', 'com.exercisecounter.app'],
+    },
+    ios: {
+      ...config.ios,
+      bundleIdentifier: 'com.exercisecounter.app',
     },
     updates: {
       url: 'https://u.expo.dev/eb961e2a-eb85-42c6-a8bc-695a9887becc',
@@ -22,7 +31,6 @@ module.exports = ({ config }) => {
     },
     plugins: [
       'expo-dev-client',
-      'expo-splash-screen',
       [
         'react-native-vision-camera',
         {
