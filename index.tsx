@@ -3,16 +3,15 @@ import React from 'react';
 import { StyleSheet, Text, View } from 'react-native';
 
 /**
- * Standalone boot probe with no camera/MediaPipe native modules linked.
+ * Bare boot probe: no camera, updates, or New Architecture.
  */
 function App(): React.JSX.Element {
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Exercise Counter</Text>
-      <Text style={styles.subtitle}>Boot OK (v1.0.5)</Text>
+      <Text style={styles.subtitle}>Boot OK (v1.0.6)</Text>
       <Text style={styles.hint}>
-        Native modules stripped for startup test. If you see this, the crash was
-        from MediaPipe/Vision Camera native init.
+        Minimal native binary (New Arch off, camera/dev-client/updates unlinked).
       </Text>
     </View>
   );

@@ -3,11 +3,11 @@
     "name": "Exercise Counter",
     "slug": "exercise_counter",
     "owner": "abelcor",
-    "version": "1.0.5",
+    "version": "1.0.6",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
-    "newArchEnabled": true,
+    "newArchEnabled": false,
     "runtimeVersion": {
       "policy": "appVersion"
     },
@@ -36,7 +36,7 @@
       "edgeToEdgeEnabled": true,
       "package": "com.exercisecounter.app",
       "permissions": ["CAMERA"],
-      "versionCode": 6
+      "versionCode": 7
     },
     "web": {
       "favicon": "./assets/favicon.png"
